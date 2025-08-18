@@ -18,7 +18,7 @@ pre-release-commit-message = "release {{crate_name}} v{{version}}"
 tag-message = "{{crate_name}} v{{version}}"
 tag = true
 push = false
-
+publish = false
 
 [dependencies]
 tar = "0.4"
