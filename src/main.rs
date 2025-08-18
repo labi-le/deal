@@ -1,12 +1,38 @@
 mod extractors;
 
+use clap::Parser;
+use std::io;
 use std::path::Path;
-use std::{env, io};
+
+/// deal provides one command to handle any archive, so you can finally stop googling "how to unpack X-format".
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None, arg_required_else_help = true)]
+struct Cli {
+    /// The source URL or local path to the archive
+    src: String,
+
+    /// The destination path for extraction
+    #[arg()]
+    dst: Option<String>,
+
+    /// Automatically create a destination directory based on the archive name
+    #[arg(short, long, conflicts_with = "dst")]
+    dest_from_src: bool,
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_logger::init();
 
-    let (src, dst) = get_url_from_args()?;
+    let cli = Cli::parse();
+
+    let src = cli.src;
+    let dst = if cli.dest_from_src {
+        generate_dst_from_src(&src)
+    } else {
+        cli.dst.unwrap_or_else(|| String::from("."))
+    };
+
+    validate_destination_path(&dst)?;
 
     let (pb_option, mut reader) = extractors::get_reader(&src)?;
     let extractor = extractors::create(&src);
@@ -22,44 +48,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn get_url_from_args() -> Result<(String, String), Box<dyn std::error::Error>> {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        return Err("URL was not provided".into());
-    }
-
-    let src = args[1].clone();
-    let dst: String;
-
-    if args.len() > 2 {
-        if args[2] == "-d" {
-            // ./deal <src> -d
-            dst = generate_dst_from_src(&src);
-        } else {
-            // ./deal <src> <some_path>
-            dst = args[2].clone();
-        }
-    } else {
-        // ./deal <src>
-        dst = String::from(".");
-    }
-
-    validate_destination_path(&dst)?;
-
-    Ok((src, dst))
-}
-
 fn validate_destination_path(dst: &str) -> Result<(), Box<dyn std::error::Error>> {
     let path = Path::new(dst);
 
     match path.symlink_metadata() {
         Ok(metadata) => {
             if metadata.file_type().is_symlink() {
-                return Err("destination path cannot be a symbolic link: ".into());
+                return Err("destination path cannot be a symbolic link".into());
             }
-            if metadata.is_file() {
+            if !metadata.is_dir() {
                 return Err(format!(
-                    "destination path '{}' already exists and is a file.",
+                    "destination path '{}' already exists but is not a directory.",
                     path.display()
                 )
                 .into());

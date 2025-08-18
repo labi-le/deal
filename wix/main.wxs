@@ -69,6 +69,7 @@
 
         <Package Id='*'
             Keywords='Installer'
+            Description='deal provides one command to handle any archive, so you can finally stop googling &#39;how to unpack X-format&#39;'
             Manufacturer='labi-le'
             InstallerVersion='450'
             Languages='1033'

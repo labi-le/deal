@@ -1,10 +1,11 @@
 [package]
 name = "deal"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 repository = "https://github.com/labi-le/deal"
 authors = ["labi-le"]
 license = "MIT"
+description = "deal provides one command to handle any archive, so you can finally stop googling 'how to unpack X-format'"
 
 [package.metadata.wix]
 upgrade-guid = "52242627-3B47-494B-916D-CB0FF6CB60D7"
@@ -23,6 +24,7 @@ xz2 = "0.1.7"
 sevenz-rust = "0.6.1"
 log = "0.4.27"
 env_logger = "0.11.8"
+clap = { version = "4.5.45", features = ["derive"] }
 
 [dev-dependencies]
 
