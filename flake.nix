@@ -8,18 +8,18 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     let
-      version = "0.1.0";
+      version = "0.1.1";
       pname = "deal";
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
 
       systemConfigs = {
         x86_64-linux = {
           url = "https://github.com/labi-le/deal/releases/download/v${version}/deal-x86_64-unknown-linux-gnu.tar.xz";
-          hash = "sha256-Rl60xFkAosGVrvfQxkf7Jmsw6oYhl6AmrwNZ6/6bR9g="; # x86_64-linux
+          hash = "sha256-AnU497Kyo5XwO2KXfZ3ibzNwivcMoAVl/1UXEIr6zco="; # x86_64-linux
         };
         aarch64-linux = {
           url = "https://github.com/labi-le/deal/releases/download/v${version}/deal-aarch64-unknown-linux-gnu.tar.xz";
-          hash = "sha256-1ybImNvWYeE/3rXI6C1SxNiT8OZQkVrMKXFwXwpIJCA="; # aarch64-linux
+          hash = "sha256-zdopsNTB/BLPNo7nB82bA68Q2MopOdLQuqv1kfLcMKM="; # aarch64-linux
         };
       };
     in
