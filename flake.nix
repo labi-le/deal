@@ -15,11 +15,11 @@
       systemConfigs = {
         x86_64-linux = {
           arch = "linux_amd64";
-          hash = "sha256-P5WaEK9pPA2PYN6AuQLtvWhXLJuAXGuLpCgtfNVt8D8="; # x86_64-linux
+          hash = "sha256-Rl60xFkAosGVrvfQxkf7Jmsw6oYhl6AmrwNZ6/6bR9g="; # x86_64-linux
         };
         aarch64-linux = {
           arch = "linux_armv6";
-          hash = "sha256-u+t9zfqaHa8R2qpBDdJnVpXDjiaB4YJnEPLLBkSs/ko="; # aarch64-linux
+          hash = "sha256-1ybImNvWYeE/3rXI6C1SxNiT8OZQkVrMKXFwXwpIJCA="; # aarch64-linux
         };
       };
     in
