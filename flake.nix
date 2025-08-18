@@ -14,11 +14,11 @@
 
       systemConfigs = {
         x86_64-linux = {
-          arch = "linux_amd64";
+          url = "https://github.com/labi-le/deal/releases/download/v${version}/deal-x86_64-unknown-linux-gnu.tar.xz";
           hash = "sha256-Rl60xFkAosGVrvfQxkf7Jmsw6oYhl6AmrwNZ6/6bR9g="; # x86_64-linux
         };
         aarch64-linux = {
-          arch = "linux_armv6";
+          url = "https://github.com/labi-le/deal/releases/download/v${version}/deal-aarch64-unknown-linux-gnu.tar.xz";
           hash = "sha256-1ybImNvWYeE/3rXI6C1SxNiT8OZQkVrMKXFwXwpIJCA="; # aarch64-linux
         };
       };
@@ -33,16 +33,16 @@
           inherit pname version;
 
           src = pkgs.fetchurl {
-            url = "https://github.com/labi-le/deal/releases/download/v${version}/${pname}_${version}_${config.arch}";
+            url = config.url;
             hash = config.hash;
           };
 
-          dontUnpack = true;
+          nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+          buildInputs = [ pkgs.stdenv.cc.cc.lib pkgs.xz ];
 
           installPhase = ''
             mkdir -p $out/bin
-            cp $src $out/bin/${pname}
-            chmod +x $out/bin/${pname}
+            install -m 755 deal $out/bin/${pname}
           '';
 
           meta = with pkgs.lib; {

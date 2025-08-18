@@ -6,10 +6,6 @@ on:
     types:
       - completed
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   update-flake:
     runs-on: ubuntu-latest
