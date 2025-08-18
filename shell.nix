@@ -10,5 +10,6 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     libarchive
     openssl.dev
+    cargo-release
   ];
 }

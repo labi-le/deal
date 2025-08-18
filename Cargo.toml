@@ -13,6 +13,13 @@ path-guid = "0A6587C9-39F3-428E-A7F6-502F18B7892E"
 license = false
 eula = false
 
+[package.metadata.release]
+pre-release-commit-message = "release {{crate_name}} v{{version}}"
+tag-message = "{{crate_name}} v{{version}}"
+tag = true
+push = false
+
+
 [dependencies]
 tar = "0.4"
 flate2 = "1.0"# .gz
