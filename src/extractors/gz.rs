@@ -13,7 +13,7 @@ impl Extractor for GzExtractor {
         log::debug!("gz archive detected");
         let mut decoder = flate2::read::GzDecoder::new(reader);
 
-        let output_name = get_output_name(path, ".gz");
+        let output_name = get_output_name(path, self.get_extensions()[0]);
         let mut output_file = File::create(&output_name)?;
         copy(&mut decoder, &mut output_file)?;
         Ok(())

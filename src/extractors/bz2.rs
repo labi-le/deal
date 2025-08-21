@@ -13,7 +13,7 @@ impl Extractor for Bz2Extractor {
         log::debug!("bz2 file detected");
         let mut decoder = bzip2::read::BzDecoder::new(reader);
 
-        let output_name = get_output_name(path, ".bz2");
+        let output_name = get_output_name(path, self.get_extensions()[0]);
         let mut output_file = File::create(&output_name)?;
 
         copy(&mut decoder, &mut output_file)?;

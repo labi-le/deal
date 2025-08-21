@@ -1,3 +1,18 @@
+#[cfg(test)]
+mod gz_test;
+#[cfg(test)]
+mod sevenz_test;
+#[cfg(test)]
+mod tar_test;
+#[cfg(test)]
+mod tarbz2_test;
+#[cfg(test)]
+mod targz_test;
+#[cfg(test)]
+mod tarxz_test;
+#[cfg(test)]
+mod zip_test;
+
 mod bz2;
 mod gz;
 mod rar;
@@ -9,6 +24,7 @@ mod targz;
 mod tarxz;
 mod xz;
 mod zip;
+mod bz2_test;
 
 pub use bz2::Bz2Extractor;
 pub use gz::GzExtractor;

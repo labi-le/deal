@@ -13,7 +13,7 @@ impl Extractor for XzExtractor {
         log::debug!("xz file detected");
         let mut decoder = xz2::read::XzDecoder::new(reader);
 
-        let output_name = get_output_name(path, ".xz");
+        let output_name = get_output_name(path, self.get_extensions()[0]);
         let mut output_file = File::create(&output_name)?;
 
         copy(&mut decoder, &mut output_file)?;
