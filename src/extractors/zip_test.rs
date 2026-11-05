@@ -10,7 +10,7 @@ mod tests {
     fn create_in_memory_zip(file_name: &str, content: &[u8]) -> Vec<u8> {
         let mut buffer = Vec::new();
         let mut zip = ZipWriter::new(Cursor::new(&mut buffer));
-        let options: FileOptions<'_, ()> = FileOptions::default()
+        let options: FileOptions<'_, '_, ()> = FileOptions::default()
             .compression_method(zip::CompressionMethod::Stored);
         zip.start_file(file_name, options).unwrap();
         zip.write_all(content).unwrap();

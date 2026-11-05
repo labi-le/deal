@@ -24,7 +24,6 @@ mod targz;
 mod tarxz;
 mod xz;
 mod zip;
-mod bz2_test;
 
 pub use bz2::Bz2Extractor;
 pub use gz::GzExtractor;
